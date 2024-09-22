@@ -2,8 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom"; 
 import logo from "../images/logo.jpg";
 import LoginPage from "../pages/LoginPage";
-import SignupPage from "../pages/SignupPage"; // Import the new SignupPage
-import ChatPage from "../pages/ChatPage"; // Import the ChatPage
+import SignupPage from "../pages/SignupPage";
+import DefaultChatPage from "../pages/DefaultChatPage";
+import ChatPage from "../pages/ChatPage";
 
 
 // bg-[#511D52]-color
@@ -54,11 +55,11 @@ const MainPage = () => {
         </div>
         {/* //<button onClick={() => navigate('/about')}>About</button> */}
         <div className="mt-4">
-          <button 
-          
+          <Link 
+          to="/defaultchat"
           className="bg-[#511D52] text-white font-semibold py-5 px-8 rounded-full hover:bg-[#3B123B] flex items-center justify-center">
             Start Now
-          </button>
+          </Link>
         </div>
       </main>
     </div>
@@ -72,7 +73,8 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route path='/chat' element={<ChatPage  />} />
+        <Route path="/defaultchat" element={<DefaultChatPage />} />
       </Routes>
     </Router>
   );

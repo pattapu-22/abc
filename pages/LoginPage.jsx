@@ -23,7 +23,7 @@ const LoginPage = () => {
           <h3 className="text-xl font-semibold text-white mb-6 text-center">
             Ready to find your perfect college?
           </h3>
-          <img className="w-12 h-24" src={logo} alt="logo of collegium" />
+          <img className="w-20 h-20" src={logo} alt="logo of collegium" />
         
       </div>
 
@@ -36,7 +36,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full px-3 py-2 border text-black" // Explicitly set the text color to black
+                className="w-full px-3 py-1 border rounded-lg text-black" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -47,7 +47,7 @@ const LoginPage = () => {
               <input
                 type="password"
                 id="password"
-                className="w-full px-3 py-2 border rounded-lg text-black" // Explicitly set the text color to black
+                className="w-full px-3 py-1 border rounded-lg text-black" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -55,12 +55,12 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
-              className=" bg-[#511D52] rounded-full  hover:bg-[#3B123B]  text-white font-semibold py-4 px-8 "
+              className=" bg-[#511D52] rounded-full center hover:bg-[#3B123B]  text-white font-semibold py-4 px-8 "
             >
               Sign In
             </button>
             <p className="mt-4 text-center text-white">
-          Doesn't have an account? <Link className='underline-offset-2 text-blue-500' to="/signup">Sign Up</Link>
+          Doesn't have an account? <Link className='underline-offset-2 underline  text-blue-500' to="/signup">SignUp</Link>
         </p>
           </form>
         </div>

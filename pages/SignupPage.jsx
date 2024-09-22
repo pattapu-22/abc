@@ -26,20 +26,20 @@ const SignupPage = () => {
 
   return (
     <div className="flex min-h-screen bg-black">
-      <div className="flex flex-col justify-center w-full max-w-md text-white border-r-2 rounded-2xl">
+      <div className="flex flex-col justify-center w-1/2 text-white border-r-2 rounded-2xl">
         <div className="flex flex-col items-center">
           <h2 className="text-4xl text-[#511D52] font-bold text-center mb-4">Welcome to Collegium</h2>
           <h3 className="text-xl font-semibold mb-6 text-center">
             Ready to find your perfect college?
           </h3>
-          <img className="w-12 h-24" src={logo} alt="logo of collegium" />
+          <img className="w-20 h-20" src={logo} alt="logo of collegium" />
           {/* <img className="w-24 h-24 mb-4" src={logo} alt="Collegium Logo" /> */}
         </div>
       </div>
 
-      <div className="flex justify-center items-center w-full max-w-md ml-4">
-        <div className=' '>
-        <h2 className="text-4xl font-bold text-white  text-left  mb-6">Sign Up</h2>
+      <div className="flex justify-center items-center w-1/2 py-10  ml-4">
+        <div className='items-center justify-center  '>
+        <h2 className="text-4xl font-bold text-white  items-left  mb-6">Sign Up</h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col font-medium w-full">
           <div className=" mb-4 ">
@@ -51,7 +51,7 @@ const SignupPage = () => {
                 type="text"
                 id="firstName"
                 color="black"
-                className="w-full px-3 py-2 border border-gray-300 bg-slate-600 text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full px-3 py-1 border  bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-[#511D52]"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -64,7 +64,7 @@ const SignupPage = () => {
               <input
                 type="text"
                 id="lastName"
-                className="w-full px-3 py-2 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full px-3 py-1 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-[#511D52]"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -78,7 +78,7 @@ const SignupPage = () => {
             <input
               type="email"
               id="email"
-              className="w-full px-3 py-2 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full px-3 py-1 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-[#511D52]"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -91,7 +91,7 @@ const SignupPage = () => {
             <input
               type="password"
               id="password"
-              className="w-full px-3 py-2 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full px-3 py-1 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-[#511D52]"
               value={password}
               onChange={(e) => setPassword  (e.target.value)}
               required
@@ -104,7 +104,7 @@ const SignupPage = () => {
             <input
               type="password"
               id="confirmPassword"
-              className="w-full px-3 py-2 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full px-3 py-1 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-[#511D52]"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -128,7 +128,7 @@ const SignupPage = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-white">
-          Already have an account? <Link  to="/login"   className="text-blue-600 underline ">Login</Link>
+          Already have an account? <Link  to="/login"   className="text-blue-600 underline ">LogIn</Link>
         </p>
       </div>
       </div>
