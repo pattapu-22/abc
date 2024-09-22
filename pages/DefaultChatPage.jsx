@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import logo from "../images/logo.jpg";
 import mic from "../images/mic.jpg";
@@ -9,7 +8,7 @@ const DefaultChatPage = () => {
   const [inputValue, setInputValue] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false); 
 
-  // Handle suggestion click to copy the suggestion text to input field
+  //text-> input field
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
   };
@@ -18,7 +17,7 @@ const DefaultChatPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      // Update the history with the user's query and system's response
+      // Updating the history 
       const newEntry = {
         title: inputValue,
         message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions.'
