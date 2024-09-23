@@ -34,7 +34,7 @@ const DefaultChatPage = () => {
         {/* Logo and Title */}
         <div className="flex items-center">
           <div className="flex items-center m-5">
-            <img src={logo} alt="Collegium Logo" className="h-12 w-12" />
+            <img src={logo} alt="Collegium Logo" className="h-12 w-14" />
             <h1 className="text-xl text-white font-semibold ml-3">Collegium</h1>
           </div>
         </div>
@@ -80,7 +80,7 @@ const DefaultChatPage = () => {
                 <h1 className="text-xl text-white ml-40 px-3 py-1 bg-slate-800 mb-3 rounded-xl">{item.title}</h1>
 
                 <div className='flex items-start '>
-                  <img src={logo} alt="logo image" className='h-12 w-12 pr-2 pt-1' />
+                  <img src={logo} alt="logo image" className='h-12 w-14 pr-2 pt-1' />
                   <p className=" text-lg pl-3  bg-slate-600 rounded-xl px-3 py-1 text-white">{item.message}</p> 
 
                 </div>
