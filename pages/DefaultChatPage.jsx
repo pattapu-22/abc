@@ -20,7 +20,7 @@ const DefaultChatPage = () => {
       // Updating the history 
       const newEntry = {
         title: inputValue,
-        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions.'
+        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions. Feel free to use this this application  where you can get the clarity by one click. '
       };
       setHistoryData(prevHistory => [...prevHistory, newEntry]); // Updating history
       setIsSubmitted(true); // Hiding history
@@ -77,8 +77,8 @@ const DefaultChatPage = () => {
           ) : (
             historyData.map((item, index) => (
               <div key={index} className="mt-2">
-                <h1 className="text-xl text-[#3B123B]">{item.title}</h1>
-                <p className="pl-3 text-gray-500">{item.message}</p>
+                <h1 className="text-xl text-white px-3 py-1 bg-slate-800 mb-3 rounded-xl">{item.title}</h1>
+                <p className=" text-lg pl-3 ml-20 bg-slate-600 rounded-xl px-3 py-1 text-white">{item.message}</p>               
               </div>
             ))
           )}

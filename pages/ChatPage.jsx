@@ -88,11 +88,12 @@ const ChatPage = () => {
               // Render all historyData instead of the last entry
               historyData.map((item, index) => (
                 <div key={index} className="">
-                  <h1 className="text-xl text-[#3B123B]">{item.title}</h1>
-                  <p className="pl-3 text-gray-500">{item.message}</p>
+                  <h1 className="text-lg text-white px-3 py-1 bg-[#3b0e3b] my-3 rounded-xl">{item.title}</h1>
+                  <p className="text-xl pl-3 ml-20 bg-[#e09ee0] rounded-xl px-3 py-1 text-black">{item.message}</p>
                 </div>
               ))
             )}
+              
           </div>
         </div>
 
