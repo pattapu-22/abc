@@ -1,14 +1,48 @@
 import { useState } from 'react';
 import logo from "../images/logo.jpg";
-import mic from "../images/mic.jpg";
+import mic from "../images/mic.jpeg";
 import { Link } from 'react-router-dom';
 
 const DefaultChatPage = () => {
   const [historyData, setHistoryData] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false); 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isListening, setIsListening] = useState(false); // To track mic state
 
-  //text-> input field
+  //   setup for the speech recognitionn
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'en-US'; //we can change the language 
+
+  // Handling the  mic click and then making setIsListing to true to start speech recognization
+  const handleMicClick = () => {
+    if (!isListening) {
+      recognition.start();
+      setIsListening(true);
+    }
+  };
+
+  // Handle the result from speech recognition
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    setInputValue(transcript);
+    setIsListening(false);
+  };
+
+  // Handling    any recognition errors or 
+  recognition.onerror = (event) => {
+    console.error("Error occurred in recognition: ", event.error);
+    setIsListening(false);
+  };
+  // end of speech input
+  recognition.onend = () => {
+    setIsListening(false);
+  };
+
+  // taking suggestion box text to input field
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
   };
@@ -17,10 +51,10 @@ const DefaultChatPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      // Updating the history 
+      // Updating the history
       const newEntry = {
         title: inputValue,
-        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions. Feel free to use this this application  where you can get the clarity by one click.'
+        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions. Feel free to use this application where you can get the clarity by one click.'
       };
       setHistoryData(prevHistory => [...prevHistory, newEntry]); // Updating history
       setIsSubmitted(true); // Hiding history
@@ -93,7 +127,7 @@ const DefaultChatPage = () => {
         {/* Input and buttons at the bottom */}
         <div className="w-full mt-3">
           <div className="flex  justify-between mb-1">
-          <button
+            <button
               className="rounded-2xl border-2 text-white border-gray-500 px-4 py-1"
               onClick={() => setInputValue('')} // Clear button functionality
             >
@@ -105,7 +139,6 @@ const DefaultChatPage = () => {
             >
               Submit
             </button>
-            
           </div>
 
           {/* Input field below buttons */}
@@ -121,7 +154,8 @@ const DefaultChatPage = () => {
             <img
               src={mic}
               alt="Mic"
-              className="absolute right-3 top-1/2 transform border-2 border-gray-900 rounded-2xl -translate-y-1/2 h-6 w-6"
+              onClick={handleMicClick}
+              className="absolute right-3 top-1/2 transform border-2 border-gray-900 rounded-2xl -translate-y-1/2 h-8 focus:outline-none focus:ring focus:ring-[#7d167d] hover:bg-[#7d167d] cursor-pointer"
             />
           </form>
         </div>

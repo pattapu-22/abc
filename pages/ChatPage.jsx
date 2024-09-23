@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import logo from "../images/logo.jpg";
-import mic from "../images/mic.jpg";
+import mic from "../images/mic.jpeg";
 import { Link } from 'react-router-dom';
+
 
 const ChatPage = () => {
   const [historyData, setHistoryData] = useState([]);
@@ -132,7 +133,7 @@ const ChatPage = () => {
             <img
               src={mic}
               alt="Mic"
-              className="absolute right-3 top-1/2 transform border-2 border-gray-900 rounded-2xl -translate-y-1/2 h-6 w-6"
+              className="absolute right-3 top-1/2 bg-slate-500 transform border-2 border-gray-900 rounded-2xl -translate-y-1/2 h-6 w-6 hover:bg-[#511D52] active:bg-green-500"
             />
           </form>
         </div>
