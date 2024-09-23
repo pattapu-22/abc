@@ -20,7 +20,7 @@ const DefaultChatPage = () => {
       // Updating the history 
       const newEntry = {
         title: inputValue,
-        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions. Feel free to use this this application  where you can get the clarity by one click. '
+        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions. Feel free to use this this application  where you can get the clarity by one click.'
       };
       setHistoryData(prevHistory => [...prevHistory, newEntry]); // Updating history
       setIsSubmitted(true); // Hiding history
@@ -52,7 +52,7 @@ const DefaultChatPage = () => {
       {/* Main Section */}
       <div className="w-full flex-grow flex px-40 flex-col mt-4 bg-black p-2">
         {/* Display chat-like history */}
-        <div className="flex-grow text-gray-300 p-4 overflow-y-auto" style={{ maxHeight: '400px' }}>
+        <div className="flex-grow text-gray-300 p-4 overflow-y-auto scroll-snap-end scroll-snap-mandatory" style={{ maxHeight: '400px' }}>
           {!isSubmitted ? (
             <div className="flex justify-center gap-5 pt-72 items-end">
               <div
@@ -77,8 +77,14 @@ const DefaultChatPage = () => {
           ) : (
             historyData.map((item, index) => (
               <div key={index} className="mt-2">
-                <h1 className="text-xl text-white px-3 py-1 bg-slate-800 mb-3 rounded-xl">{item.title}</h1>
-                <p className=" text-lg pl-3 ml-20 bg-slate-600 rounded-xl px-3 py-1 text-white">{item.message}</p>               
+                <h1 className="text-xl text-white ml-40 px-3 py-1 bg-slate-800 mb-3 rounded-xl">{item.title}</h1>
+
+                <div className='flex items-start '>
+                  <img src={logo} alt="logo image" className='h-12 w-12 pr-2 pt-1' />
+                  <p className=" text-lg pl-3  bg-slate-600 rounded-xl px-3 py-1 text-white">{item.message}</p> 
+
+                </div>
+                              
               </div>
             ))
           )}

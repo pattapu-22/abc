@@ -17,11 +17,12 @@ const MainPage = () => {
       <aside className="text-[#511D52] w-1/4 h-screen flex flex-col border-r-2 border-gray-200 rounded-2xl">
         {/* Logo and Title */}
         <div className="flex flex-col items-center  mt-8 border-b">
-          <div className="flex items-center mb-10">
+          <div className="flex items-center mb-10  border-2 p-3 rounded-xl">
             <img
               src={logo}
+              
               alt="Collegium Logo"
-              className="h-12 w-12"
+              className="h-12 w-12 "// rounded-full if the logo is changed
             />
             <h1 className="text-xl text-white font-semibold ml-3">Collegium</h1>
           </div>
