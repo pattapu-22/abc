@@ -45,47 +45,6 @@ export const SuggestionsBox = ({ text, onClick }) => {
   );
 };
 
-// export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSubmit }) => {
-//   const handleKeyDown = (e) => {
-//     if (e.key === "Enter") {
-//       e.preventDefault();
-//       handleSubmit();
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={(e) => e.preventDefault()} className="relative w-full flex justify-center">
-//       <div className="relative w-full sm:px-16 md:px-20 lg:px-32 xl:px-40">
-//         <input
-//           type="text"
-//           value={inputValue}
-//           onChange={(e) => setInputValue(e.target.value)}
-//           onKeyDown={handleKeyDown}
-//           placeholder="Ask Collegium.."
-//           className="w-full h-11 pl-4 rounded-3xl bg-[#313131] text-white"
-//           required
-//         />
-//         {inputValue ? (
-//           <img
-//             src={arrow} 
-//             alt="Submit" 
-//             onClick={handleSubmit}
-//             className="absolute right-3 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-slate-300 rounded-full hover:bg-slate-200 cursor-pointer"
-//           />
-//         ) : (
-//           <img
-//             src={mic} 
-//             alt="Mic" 
-//             onClick={handleMicClick}
-//             className="absolute right-3 top-1/2 transform -translate-y-1/2 h-8 w-8 cursor-pointer rounded-full"
-//           />
-//         )}
-//       </div>
-//     </form>
-//   );
-// };
-
-
 export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSubmit }) => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
