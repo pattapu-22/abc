@@ -4,7 +4,7 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./index.html",
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./images/**/*.{jpeg,jpg}",
+    "./images/**/*.{jpeg,jpg,png}",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {

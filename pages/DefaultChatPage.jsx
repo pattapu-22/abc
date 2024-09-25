@@ -1,163 +1,53 @@
-import { useState } from 'react';
-import logo from "../images/logo.jpg";
-import mic from "../images/mic.jpeg";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from "react";
+import { LogoAndTitile, Button, SuggestionsBox, InputField, useSpeechRecognition, useHandleInput, ChatHistory } from "../src/components/Utilities";
 
 const DefaultChatPage = () => {
-  const [historyData, setHistoryData] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isListening, setIsListening] = useState(false); // To track mic state
+  const { inputValue, setInputValue, historyData, isSubmitted, handleSubmit } = useHandleInput();
+  const { handleMicClick } = useSpeechRecognition(setInputValue);
+  const chatEndRef = useRef(null);
 
-  //   setup for the speech recognitionn
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = 'en-US'; //we can change the language 
-
-  // Handling the  mic click and then making setIsListing to true to start speech recognization
-  const handleMicClick = () => {
-    if (!isListening) {
-      recognition.start();
-      setIsListening(true);
-    }
-  };
-
-  // Handle the result from speech recognition
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
-    setInputValue(transcript);
-    setIsListening(false);
-  };
-
-  // Handling    any recognition errors or 
-  recognition.onerror = (event) => {
-    console.error("Error occurred in recognition: ", event.error);
-    setIsListening(false);
-  };
-  // end of speech input
-  recognition.onend = () => {
-    setIsListening(false);
-  };
-
-  // taking suggestion box text to input field
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      // Updating the history
-      const newEntry = {
-        title: inputValue,
-        message: 'Thank you for consulting Collegium for your queries. We are happy to help you with your requested questions. Feel free to use this application where you can get the clarity by one click.'
-      };
-      setHistoryData(prevHistory => [...prevHistory, newEntry]); // Updating history
-      setIsSubmitted(true); // Hiding history
-      setInputValue(""); // Clearing the input field
-    }
-  };
+  // Scroll to the bottom of the chat when new messages are added
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [historyData]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
-      <aside className="text-[#511D52] w-full flex flex-row h-1/6 bg-black border-b-2 border-gray-500 rounded-2xl">
-        {/* Logo and Title */}
-        <div className="flex items-center">
-          <div className="flex items-center m-5">
-            <img src={logo} alt="Collegium Logo" className="h-12 w-14" />
-            <h1 className="text-xl text-white font-semibold ml-3">Collegium</h1>
-          </div>
-        </div>
-        {/* Navigation Menu */}
-        <nav className="flex-grow flex flex-row justify-end text-lg items-center mr-7">
-          <Link to="/login" className="flex items-center justify-center px-6 py-0.5 hover:bg-[#3B123B] rounded-2xl hover:text-white">
-            SignIn
-          </Link>
-          <Link to="/signup" className="flex items-center justify-center px-6 py-0.5 hover:bg-[#3B123B] rounded-2xl hover:text-white">
-            SignUp
-          </Link>
+    <div className="flex flex-col h-screen">
+      {/* Aside Section */}
+      <aside className="grid grid-cols-[auto_1fr_auto] items-center bg-[#151515] text-white h-20 px-2 sm:px-4">
+        <LogoAndTitile />
+        <nav className="flex justify-end gap-6 pr-5">
+          <Button name="SignIn" route="/login" />
+          <Button name="SignUp" route="/signup" />
         </nav>
-      </aside> 
+      </aside>
 
-      {/* Main Section */}
-      <div className="w-full flex-grow flex px-40 flex-col mt-4 bg-black p-2">
-        {/* Display chat-like history */}
-        <div className="flex-grow text-gray-300 p-4 overflow-y-auto scroll-snap-end scroll-snap-mandatory" style={{ maxHeight: '400px' }}>
-          {!isSubmitted ? (
-            <div className="flex justify-center gap-5 pt-72 items-end">
-              <div
-                className="border-2 border-gray-500 px-4 py-2 cursor-pointer hover:bg-[#3B123B] rounded-2xl hover:text-white"
-                onClick={() => handleSuggestionClick("What is Collegium?")}
-              >
-                What is Collegium?
+      {/* Chat Area */}
+      <div className=" px-4 sm:px-16 md:px-20 lg:px-32 xl:px-40  bg-[#181818]">
+        <div className="flex flex-col bg-[#181818] h-[calc(100vh-10rem)]">
+          <div className="flex-grow overflow-y-auto ">
+            {!isSubmitted ? (
+              <div className="flex justify-center gap-5 pt-72 items-end">
+                <SuggestionsBox text="What is Collegium?" onClick={() => handleSuggestionClick("What is Collegium?")} />
+                <SuggestionsBox text="How does Collegium work?" onClick={() => handleSuggestionClick("How does Collegium work?")} />
+                <SuggestionsBox text="Benefits of Collegium?" onClick={() => handleSuggestionClick("Benefits of Collegium?")} />
               </div>
-              <div
-                className="border-2 border-gray-500 px-4 py-2 cursor-pointer hover:bg-[#3B123B] rounded-2xl hover:text-white"
-                onClick={() => handleSuggestionClick("How does Collegium work?")}
-              >
-                How does Collegium work?
-              </div>
-              <div
-                className="border-2 border-gray-500 px-4 py-2 cursor-pointer hover:bg-[#3B123B] rounded-2xl hover:text-white"
-                onClick={() => handleSuggestionClick("Benefits of Collegium?")}
-              >
-                Benefits of Collegium?
-              </div>
-            </div>
-          ) : (
-            historyData.map((item, index) => (
-              <div key={index} className="mt-2">
-                <h1 className="text-xl text-white ml-40 px-3 py-1 bg-slate-800 mb-3 rounded-xl">{item.title}</h1>
-
-                <div className='flex items-start '>
-                  <img src={logo} alt="logo image" className='h-12 w-14 pr-2 pt-1' />
-                  <p className=" text-lg pl-3  bg-slate-600 rounded-xl px-3 py-1 text-white">{item.message}</p> 
-
-                </div>
-                              
-              </div>
-            ))
-          )}
+            ) : (
+              // Use ChatHistory component
+              <ChatHistory historyData={historyData} />
+            )}
+            {/* This div is used to automatically scroll to the bottom */}
+            <div ref={chatEndRef} />
+          </div>
         </div>
 
-        {/* Input and buttons at the bottom */}
-        <div className="w-full mt-3">
-          <div className="flex  justify-between mb-1">
-            <button
-              className="rounded-2xl border-2 text-white border-gray-500 px-4 py-1"
-              onClick={() => setInputValue('')} // Clear button functionality
-            >
-              Clear
-            </button>
-            <button
-              className="rounded-2xl border-2 text-white border-gray-500 px-4 py-1"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </div>
-
-          {/* Input field below buttons */}
-          <form onSubmit={handleSubmit} className="relative w-full">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Ask Collegium"
-              className="w-full px-3 py-1 border rounded-lg text-white bg-black pr-10"
-              required
-            />
-            <img
-              src={mic}
-              alt="Mic"
-              onClick={handleMicClick}
-              className="absolute right-3 top-1/2 transform border-2 border-gray-900 rounded-2xl -translate-y-1/2 h-8 focus:outline-none focus:ring focus:ring-[#7d167d] hover:bg-[#7d167d] cursor-pointer"
-            />
-          </form>
+        {/* Input Field Section */}
+        <div className="h-24 p-4">
+          <InputField inputValue={inputValue} setInputValue={setInputValue} handleMicClick={handleMicClick} handleSubmit={handleSubmit} />
         </div>
       </div>
     </div>
