@@ -39,7 +39,7 @@ const ChatPage = () => {
       {/* Main Section */}
       <main className="col-span-3 flex sm:px-16 md:px-20 lg:px-32 xl:px-40  flex-col h-screen relative bg-[#181818]">
         {/* Chat Section */}
-        <div className="flex-grow overflow-y-auto p-4 pb-24"> {/* pb-24 ensures space for the input field */}
+        <div className="flex-grow overflow-y-auto mt-10 p-4 pb-24"> {/* pb-24 ensures space for the input field */}
           {!isSubmitted ? (
             <div className="flex sm:justify-start lg:justify-center justify-center gap-1 sm:gap-5 pt-72 items-end">
               <SuggestionsBox text="What is Collegium?" onClick={() => handleSuggestionClick("What is Collegium?")} />
@@ -47,9 +47,9 @@ const ChatPage = () => {
               <SuggestionsBox text="Benefits of Collegium?" onClick={() => handleSuggestionClick("Benefits of Collegium?")} />
             </div>
           ) : (
-            <div className="h-full overflow-y-auto">
+            
               <ChatHistory historyData={historyData} />
-            </div>
+            
           )}
           {/* Auto-scroll to the bottom */}
           <div ref={chatEndRef} />

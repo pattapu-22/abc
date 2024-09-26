@@ -27,9 +27,9 @@ const DefaultChatPage = () => {
       </aside>
 
       {/* Chat Area */}
-      <div className=" px-4 sm:px-16 md:px-20 lg:px-32 xl:px-40  bg-[#181818]">
+      <div className=" px-4 sm:px-16 md:px-20 lg:px-40 xl:px-56  bg-[#181818]">
         <div className="flex flex-col bg-[#181818] h-[calc(100vh-10rem)]">
-          <div className="flex-grow overflow-y-auto ">
+          <div className="flex-grow mt-2 overflow-y-auto ">
             {!isSubmitted ? (
               <div className="flex justify-center gap-5 pt-72 items-end">
                 <SuggestionsBox text="What is Collegium?" onClick={() => handleSuggestionClick("What is Collegium?")} />

@@ -5,13 +5,14 @@ import logo from "../../images/logo.jpg";
 import mic from "../../images/mic.jpeg";
 import arrow from "../../images/arrow.png";
 import dots from "../../images/dots.jpg";
+import icon from "../../images/icon.png";
 
 //import arrow from "../../images/arrow.jpeg";
 
 // Button component for navigation
 export const Button = ({ name, route }) => {
   return (
-    <Link to={route} className="hover:text-gray-500 text-gray-200 font-semibold">
+    <Link to={route} className="hover:text-[#511D52] text-gray-200 font-semibold">
       {name}
     </Link>
   );
@@ -30,7 +31,7 @@ export const ButtonWithProps = ({ name, height, width, background, onHoverBackgr
 export const LogoAndTitile = () => {
   return (
     <div className="flex items-center">
-      <img src={logo} alt="Logo" className="h-10 w-10 rounded-full" />
+      <img src={icon} alt="Logo" className="h-10 w-12 " />
       <h1 className="text-xl text-white font-semibold ml-3 sm:ml-0 lg:ml-3 ">Collegium</h1>
     </div>
   );
@@ -159,7 +160,7 @@ export const SideTextOfSigning = () => {
       <h3 className="text-xl font-semibold text-white mb-6 text-center">
         Ready to find your perfect college?
       </h3>
-      <img className="w-20 h-20 rou  items-center" src={logo} alt="logo of collegium" />
+      <img className="w-24 h-20   items-center" src={icon} alt="logo of collegium" />
     </div>
   );
 };
@@ -265,9 +266,9 @@ export const HoverImage = () => {
 
 export const ChatHistory = ({ historyData }) => {
   return (
-    <div>
+    <div >
       {historyData.map((item, index) => (
-        <div key={index} className="mt-2 ">
+        <div key={index} className="mt-5 ">
           <h1 className="text-sm md:text-base text-slate-300 ml-40 px-3 py-1 bg-[#282828] mb-3 rounded-xl">{item.title}</h1>
           <div className="flex items-start">
             <img src={logo} alt="logo image" className=" hidden md:flex h-10 w-14 pr-2 m-1" />
