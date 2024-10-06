@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import logo from "../../images/logo.jpg";
-import mic from "../../images/mic.jpeg";
-import arrow from "../../images/arrow.png";
-import dots from "../../images/dots.jpg";
-import icon from "../../images/icon.png";
+import logo from "../images/logo.jpg";
+import mic from "../images/mic.jpeg";
+import arrow from "../images/arrow.png";
+import dots from "../images/dots.jpg";
+import icon from "../images/icon.png";
+import upload from "../images/upload.png"
 
 //import arrow from "../../images/arrow.jpeg";
 
@@ -16,9 +17,9 @@ export const Button = ({ name, route }) => {
       {name}
     </Link>
   );
-};
+};  
 
-// ButtonWithProps for customized buttons
+// ButtonWithProps for customized buttonsh'
 export const ButtonWithProps = ({ name, height, width, background, onHoverBackground, route }) => {
   return (
     <Link to={route} className={`font-semibold text-white rounded-full ${height} ${width} ${background} hover:${onHoverBackground}`}>
@@ -46,7 +47,180 @@ export const SuggestionsBox = ({ text, onClick }) => {
   );
 };
 
-export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSubmit }) => {
+
+
+// export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSubmit, handleFileUpload }) => {
+//   const [selectedFile, setSelectedFile] = useState(null);
+
+//   const handleKeyDown = (e) => {
+//     if (e.key === "Enter") {
+//       e.preventDefault();
+//       handleSubmit();
+//     }
+//   };
+
+//   const handleFileChange = (e) => {
+//     const file = e.target.files[0];
+//     setSelectedFile(file);
+//     handleFileUpload(file); // Send the file to parent or process it
+//   };
+
+//   return (
+//     <form onSubmit={(e) => e.preventDefault()} className="relative w-full flex justify-center">
+//       <div className="relative w-full sm:px-16 md:px-20 lg:px-32 xl:px-40">
+//         {/* Input field with icons inside */}
+//         <div className="relative flex items-center w-full">
+//           {/* File upload icon inside the input field */}
+//           <label htmlFor="file-upload" className="absolute left-3 flex items-center cursor-pointer">
+//             <img
+//               src={upload} 
+//               alt="Attach file"
+//               className="w-6 h-6 rounded-full"
+//             />
+            
+//           </label>
+//           <input
+//             id="file-upload"
+//             type="file"
+//             className="hidden"
+//             onChange={handleFileChange}
+//           />
+
+//           {/* Input field */}
+//           <input
+//             type="text"
+//             value={inputValue}
+//             onChange={(e) => setInputValue(e.target.value)}
+//             onKeyDown={handleKeyDown}
+//             placeholder="Ask Collegium.."
+//             className="w-full h-11 pl-12 pr-12 rounded-3xl bg-[#313131] text-white"
+//             required
+//           />
+
+//           {/* Mic or Submit icon inside input field */}
+//           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center">
+//             {inputValue ? (
+//               <img
+//                 src={arrow} 
+//                 alt="Submit" 
+//                 onClick={handleSubmit}
+//                 className="w-8 h-8 bg-slate-300 rounded-full hover:bg-slate-200 cursor-pointer"
+//               />
+//             ) : (
+//               <img
+//                 src={mic} 
+//                 alt="Mic" 
+//                 onClick={handleMicClick}
+//                 className="h-8 w-8 cursor-pointer rounded-full"
+//               />
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     </form>
+//   );
+// };
+
+
+// export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSubmit, handleFileUpload }) => {
+//   const [selectedFile, setSelectedFile] = useState(null);
+
+//   // Handle file change
+//   const handleFileChange = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       setSelectedFile(file);
+//       handleFileUpload(file); // Upload file to parent or process it
+//       // Append file name to the current input value
+//       setInputValue((prev) => prev + ` [${file.name}]`);
+//     }
+//   };
+
+//   // Handle key down for form submission
+//   const handleKeyDown = (e) => {
+//     if (e.key === "Enter") {
+//       e.preventDefault();
+//       handleSubmit();
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={(e) => e.preventDefault()} className="relative w-full flex justify-center">
+//       <div className="relative w-full sm:px-16 md:px-20 lg:px-32 xl:px-40">
+//         <div className="relative flex items-center w-full">
+//           {/* File upload icon */}
+//           <label htmlFor="file-upload" className="absolute left-3 flex items-center cursor-pointer">
+//             <img src={upload} alt="Attach file" className="w-6 h-6 rounded-full" />
+//           </label>
+//           <input
+//             id="file-upload"
+//             type="file"
+//             className="hidden"
+//             onChange={handleFileChange}
+//           />
+
+//           {/* Input field */}
+//           <input
+//             type="text"
+//             value={inputValue}
+//             onChange={(e) => setInputValue(e.target.value)}
+//             onKeyDown={handleKeyDown}
+//             placeholder="Ask Collegium.."
+//             className="w-full h-11 pl-12 pr-12 rounded-3xl bg-[#313131] text-white"
+//             required
+//           />
+
+//           {/* Mic or Submit icon */}
+//           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center">
+//             {inputValue ? (
+//               <img
+//                 src={arrow} 
+//                 alt="Submit" 
+//                 onClick={handleSubmit}
+//                 className="w-8 h-8 bg-slate-300 rounded-full hover:bg-slate-200 cursor-pointer"
+//               />
+//             ) : (
+//               <img
+//                 src={mic} 
+//                 alt="Mic" 
+//                 onClick={handleMicClick}
+//                 className="h-8 w-8 cursor-pointer rounded-full"
+//               />
+//             )}
+//           </div>
+//         </div>
+
+//         {/* Display selected file */}
+//         {selectedFile && (
+//           <div className="mt-2 text-white text-sm">
+//             <strong>File:</strong> {selectedFile.name}
+//           </div>
+//         )}
+//       </div>
+//     </form>
+//   );
+// };
+
+
+
+export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSubmit, handleFileUpload }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    try {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+        handleFileUpload(file); // Process the file
+        setInputValue((prev) => prev + ` [${file.name}]`); // Append file name to the input
+      } else {
+        throw new Error("No file selected");
+      }
+    } catch (error) {
+      console.error("Error while uploading file:", error.message);
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -57,38 +231,49 @@ export const InputField = ({ inputValue, setInputValue, handleMicClick, handleSu
   return (
     <form onSubmit={(e) => e.preventDefault()} className="relative w-full flex justify-center">
       <div className="relative w-full sm:px-16 md:px-20 lg:px-32 xl:px-40">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Ask Collegium.."
-          className="w-full h-11 pl-4 pr-12 rounded-3xl bg-[#313131] text-white" // Added padding to the right for icon space
-          required
-        />
-        <div className="absolute right-3 sm:px-16 md:px-20 lg:px-32 xl:px-40 top-1/2 transform -translate-y-1/2 flex items-center">
-          {inputValue ? (
-            <img
-              src={arrow} 
-              alt="Submit" 
-              onClick={handleSubmit}
-              className="w-8 h-8 bg-slate-300 rounded-full hover:bg-slate-200 cursor-pointer"
-            />
-          ) : (
-            <img
-              src={mic} 
-              alt="Mic" 
-              onClick={handleMicClick}
-              className="h-8 w-8 cursor-pointer rounded-full"
-            />
-          )}
+        <div className="relative flex items-center w-full">
+          <label htmlFor="file-upload" className="absolute left-3 flex items-center cursor-pointer">
+            <img src={upload} alt="Attach file" className="w-6 h-6 rounded-full" />
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask Collegium.."
+            className="w-full h-11 pl-12 pr-12 rounded-3xl bg-[#313131] text-white"
+            required
+          />
+
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center">
+            {inputValue ? (
+              <img
+                src={arrow}
+                alt="Submit"
+                onClick={handleSubmit}
+                className="w-8 h-8 bg-slate-300 rounded-full hover:bg-slate-200 cursor-pointer"
+              />
+            ) : (
+              <img
+                src={mic}
+                alt="Mic"
+                onClick={handleMicClick}
+                className="h-8 w-8 cursor-pointer rounded-full"
+              />
+            )}
+          </div>
         </div>
       </div>
     </form>
   );
 };
-
-// Hook to manage speech recognition
 export const useSpeechRecognition = (setInputValue) => {
   const [isListening, setListening] = useState(false);
 
@@ -231,7 +416,7 @@ export const HoverImage = () => {
         src={dots} 
         alt="settings"
         onClick={() => setIsOpen(!isOpen)} 
-        className="w-6 h-6 lg:mr-4 bg-gray-700 rounded-lg py-1 hover:border-gray-700 hover:border-2 cursor-pointer"
+        className="w-6 h-6 lg:mr-4 bg-gray-700 rounded-lg py-1  cursor-pointer"
       />
       {isOpen && (
         <div
@@ -271,7 +456,7 @@ export const ChatHistory = ({ historyData }) => {
         <div key={index} className="mt-5 ">
           <h1 className="text-sm md:text-base text-slate-300 ml-40 px-3 py-1 bg-[#282828] mb-3 rounded-xl">{item.title}</h1>
           <div className="flex items-start">
-            <img src={logo} alt="logo image" className=" hidden md:flex h-10 w-14 pr-2 m-1" />
+            <img src={logo} alt="logo" className=" hidden md:flex h-10 w-14 pr-2 m-1" />
             <p className="text-sm md:text-sm pl-3 rounded-xl px-3 py-1 text-slate-300">{item.message}</p>
           </div>
         </div>
