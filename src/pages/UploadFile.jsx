@@ -1,144 +1,89 @@
-
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// const UploadPage = () => {
-//   const [file, setFile] = useState(null);
-//   const [fileContent, setFileContent] = useState('');
-//   const navigate = useNavigate();
-
-//   const handleFileChange = (e) => {
-//     setFile(e.target.files[0]);
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (file) {
-//       const reader = new FileReader();
-
-//       // Read the file as text
-//       reader.onload = (event) => {
-//         setFileContent(event.target.result);
-//       };
-
-//       // Start reading the file
-//       reader.readAsText(file);
-//     } else {
-//       console.log('No file selected');
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen grid place-items-center bg-[#181818]">
-//       <form 
-//         onSubmit={handleSubmit} 
-//         className="bg-gradient-to-r from-gray-800 to-gray-700 p-8 rounded-lg shadow-lg text-center space-y-6"
-//       >
-//         <h2 className="text-2xl text-white font-semibold">Upload a File</h2>
-//         <input 
-//           type="file" 
-//           onChange={handleFileChange} 
-//           className="block w-full p-2 border border-gray-600 rounded-md text-white bg-gray-800"
-//           required 
-//         />
-//         <button 
-//           type="submit" 
-//           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
-//         >
-//           Submit
-//         </button>
-//       </form>
-
-//       {/* Display the file content if available */}
-//       {fileContent && (
-//         <div className="mt-6 p-4 bg-gray-700 text-white rounded-md">
-//           <h3 className="text-lg font-semibold">File Content:</h3>
-//           <pre>{fileContent}</pre>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default UploadPage;
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import mammoth from 'mammoth';
 
-const UploadPage = () => {
+function App() {
   const [file, setFile] = useState(null);
-  const [fileContent, setFileContent] = useState(null); // Use null to indicate no content yet
-  const [fileType, setFileType] = useState('');
-  const navigate = useNavigate();
+  const [submitted, setSubmitted] = useState(false);
+  const [preview, setPreview] = useState(null);
+  const [docContent, setDocContent] = useState('');
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setFileType(selectedFile.type); // Store the file type
+    const uploadedFile = e.target.files[0];
+    setFile(uploadedFile);
+    setSubmitted(false);
+    
+    if (uploadedFile) {
+      const fileType = uploadedFile.type;
+      // Create a preview URL for images and PDFs
+      setPreview(fileType.startsWith('image/') || fileType === 'application/pdf' ? URL.createObjectURL(uploadedFile) : null);
+      if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        handleDocxFile(uploadedFile);
+      }
+    }
+  };
+
+  const handleDocxFile = async (file) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const { value } = await mammoth.convertToHtml({ arrayBuffer });
+    setDocContent(value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (file) setSubmitted(true);
+  };
+
+  const handleBack = () => {
+    setSubmitted(false);
+    setFile(null);
+    setPreview(null);
+    setDocContent('');
+  };
+
+  const renderContent = () => {
     if (file) {
-      const reader = new FileReader();
-
-      // Handle different file types
+      const fileType = file.type;
+      // Display based on file type
       if (fileType.startsWith('image/')) {
-        reader.onload = (event) => {
-          setFileContent(event.target.result); // Set image data URL
-        };
-        reader.readAsDataURL(file); // Read image as data URL
-      } else if (fileType === 'text/plain') {
-        reader.onload = (event) => {
-          setFileContent(event.target.result); // Set text content
-        };
-        reader.readAsText(file); // Read text file
-      } else {
-        // For other file types, display a message
-        setFileContent(`File uploaded: ${file.name}. Unfortunately, we cannot display the content of this file type.`);
+        return `<img src="${preview}" alt="File Preview" class="max-w-full max-h-96 rounded" />`;
+      } else if (fileType === 'application/pdf') {
+        return `<iframe src="${preview}" title="PDF Preview" class="w-full h-96 border rounded"></iframe>`;
+      } else if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        return docContent; // DOCX content is already in HTML format
+      } else if (fileType === 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
+        const googleViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(preview)}&embedded=true`;
+        return `<iframe src="${googleViewerUrl}" title="PPT Preview" class="w-full h-96 border rounded"></iframe>`;
       }
-
-      // Optionally navigate or do something else
-      navigate('/success'); // Navigate to success route after upload
-    } else {
-      console.log('No file selected');
     }
+    return null;
   };
 
   return (
-    <div className="min-h-screen grid place-items-center bg-[#181818]">
-      <form 
-        onSubmit={handleSubmit} 
-        className="bg-gradient-to-r from-gray-800 to-gray-700 p-8 rounded-lg shadow-lg text-center space-y-6"
-      >
-        <h2 className="text-2xl text-white font-semibold">Upload a File</h2>
-        <input 
-          type="file" 
-          onChange={handleFileChange} 
-          className="block w-full p-2 border border-gray-600 rounded-md text-white bg-gray-800"
-          required 
-        />
-        <button 
-          type="submit" 
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
-        >
-          Submit
-        </button>
-      </form>
-
-      {/* Display the file content if available */}
-      {fileContent && (
-        <div className="mt-6 p-4 bg-gray-700 text-white rounded-md">
-          <h3 className="text-lg font-semibold">File Content:</h3>
-          {fileType.startsWith('image/') ? (
-            <img src={fileContent} alt="Uploaded" className="mt-2 max-w-full h-auto" />
-          ) : (
-            <pre>{fileContent}</pre>
-          )}
-        </div>
-      )}
+    <div className="flex items-center justify-center min-h-screen bg-[#181818]">
+      <div className="bg-[#222222] p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <h2 className="text-xl font-semibold mb-4 text-center text-white">{submitted ? 'File Submitted!' : 'Upload a File'}</h2>
+        {!submitted ? (
+          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="mb-4 p-2 border border-gray-300 rounded text-white"
+              accept="image/*,.pdf,.doc,.docx,.ppt,.pptx"
+            />
+            <button type="submit" className="bg-blue-950 text-white px-4 py-2 rounded hover:bg-blue-900 transition">Submit</button>
+          </form>
+        ) : (
+          <div className="mt-4">
+            <p className="text-lg font-medium mb-2">File Preview:</p>
+            <div className="border p-4 h-96 overflow-auto" dangerouslySetInnerHTML={{ __html: renderContent() }} />
+          </div>
+        )}
+        {submitted && (
+          <button onClick={handleBack} className="bg-red-500 text-white px-4 py-2 mt-4 rounded hover:bg-red-600 transition">Back to Upload</button>
+        )}
+      </div>
     </div>
   );
-};
+}
 
-export default UploadPage;
+export default App;
