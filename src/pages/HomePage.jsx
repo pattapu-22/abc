@@ -1,14 +1,8 @@
-//import React, { Suspense } from "react";
+import React from 'react';
 import { Button, ButtonWithProps, LogoAndTitile } from "../components/Utilities.jsx";
 
-//const Utilities = React.lazy(() => import("../src/components/Utilities"));
-
-// const Button = React.lazy(() => import('../src/components/Utilities/Button'));
-// const ButtonWithProps = React.lazy(() => import('../src/components/Utilities/ButtonWithProps'));
-// const LogoAndTitile = React.lazy(() => import('../src/components/Utilities/LogoAndTitile'));
-
-
 const HomePage = () => {
+  
   return (
     <div className="grid grid-rows-[auto_1fr] min-h-screen bg-[#181818]">
       {/* Top Bar */}

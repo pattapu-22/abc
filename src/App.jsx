@@ -7,12 +7,10 @@ import ChatPage from "./pages/ChatPage.jsx";
 import HomePage  from "./pages/HomePage.jsx";
 import UploadPage from "./pages/UploadFile.jsx";
 
-//const LazyComponent = React.lazy(() => import('./HeavyComponent'));
-
 
 const App = () => {
   return (
-    <Router>
+    <Router >
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<SignInForm />} />
