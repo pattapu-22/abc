@@ -21,9 +21,9 @@ const ChatPage = () => {
   }, [historyData]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-4 min-h-screen bg-[#151515]">
+    <div className="grid grid-cols-1 sm:grid-cols-4 bg-[#232323]">
       {/* Sidebar */}
-      <aside className="col-span-1 bg-[#151515] text-[#511D52] flex flex-col px-1 py-4">
+      <aside className="col-span-1 bg-[#1b1b1b] text-[#511D52] flex flex-col px-1 py-4">
         {/* Logo and Title */}
         <div className="flex flex-row items-center justify-between">
           <LogoAndTitile />
@@ -31,18 +31,18 @@ const ChatPage = () => {
         </div>
 
         {/* History Display */}
-        <div className="hidden bg-[#1c1c1c] mx-2 text-gray-300 px-3 sm:flex flex-col mt-10 flex-grow overflow-y-auto">
+        <div className="hidden bg-[#1c1c1c] mx-2 text-white px-3 sm:flex flex-col mt-10 flex-grow overflow-y-auto">
           <h1 className="text-xl">Chat History</h1>
           {historyData.map((item, index) => (
             <div key={index} className="truncate">
-              <h1 className="text-xl text-[#3B123B]">{item.title}</h1>
+              <h1 className="text-xl text-gray-300  ">{item.title}</h1>
             </div>
           ))}
         </div>
       </aside>
 
       {/* Main Section */}
-      <main className="col-span-3 flex sm:px-16 md:px-20 lg:px-32 xl:px-40  flex-col h-screen relative bg-[#181818]">
+      <main className="col-span-3 flex sm:px-16 md:px-20 lg:px-32 xl:px-40  flex-col h-screen relative ">
         {/* Chat Section */}
         <div className="flex-grow overflow-y-auto mt-10 p-4 pb-24"> {/* pb-24 ensures space for the input field */}
           {!isSubmitted ? (
@@ -61,7 +61,7 @@ const ChatPage = () => {
         </div>
 
         {/* Input Field Section */}
-        <div className="h-20 p-4 bg-[#181818] absolute bottom-0 left-0 right-0">
+        <div className="h-20 p-4  absolute bottom-0 left-0 right-0">
           <InputField inputValue={inputValue} setInputValue={setInputValue} handleMicClick={handleMicClick} handleSubmit={handleSubmit} handleFileUpload={handleFileUpload}/>
         </div>
       </main>

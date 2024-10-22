@@ -29,12 +29,12 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="grid min-h-screen grid-cols-1 md:grid-cols-2 bg-[#181818]">
+    <div className="grid min-h-screen grid-cols-1 md:grid-cols-2 ">
       <div className="flex items-center justify-center py-10 px-9 ml-4 h-full">
         <SideTextOfSigning />
       </div>
       
-      <div className='flex items-center justify-center px-14 h-full'>
+      <div className='flex items-center justify-center  px-14 h-full'>
         <form onSubmit={handleSubmit} className="flex flex-col font-medium w-full">
           <h2 className="text-4xl font-bold text-white items-left mb-6">Sign Up</h2>
           <SignInInputBoxes name="Name" type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
